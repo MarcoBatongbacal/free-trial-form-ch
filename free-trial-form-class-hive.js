@@ -283,8 +283,13 @@ class FreeTrialFormClassHive extends HTMLElement {
         }
 
         // Reset form fields
-        resetForm(form) {
-            form.reset();
+        resetForm() {
+            const form = this.shadowRoot.querySelector('#school-details-form');
+            if (form) {
+                form.reset();
+            } else {
+                console.error('Form element not found.');
+            }
         }
 
         // Handle form submission
@@ -310,7 +315,7 @@ class FreeTrialFormClassHive extends HTMLElement {
                 this.create( Object.fromEntries(formData) )
                 .then(() => {
                     // Reset the form after successful submission
-                    this.resetForm(event.target);
+                    this.resetForm();
                     window.location.href = 'https://www.classhive.com.au/start-trial-thank-you';
                 })
                 .catch(error => {
